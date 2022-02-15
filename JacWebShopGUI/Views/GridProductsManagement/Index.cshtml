@@ -13,12 +13,12 @@
                            .Error("error_handler")
                            .Sync("sync_handler")
                            )
-                           //.Model(Model =>
-                           //{
-                           //    Model.Id(p => p.Id);
-                           //})
+                           .Model(Model =>
+                           {
+                               Model.Id(p => p.Id);
+                           })
                            .Read(read => read.Action("GetAllProducts", "GridProductsManagement"))
-                           //.Create(update => update.Action("CrearRegistroRequerimiento", "RegistroRequerimiento"))                      
+                           .Create(update => update.Action("CreateNewProduct", "GridProductsManagement"))
                            .PageSize(50)
                            )
 
@@ -33,15 +33,12 @@
                                columns.Bound(p => p.Description).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Description").Width(180);
                                columns.Bound(p => p.TimeStamp).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Time Stamp").Width(150).Format("{0:yyyy-MM-dd HH:mm:ss}");
                            })
-                           //.ToolBar(toolbar =>
-                           //{
-                           //    toolbar.Create().Text("Crear Requerimiento");
+                           .ToolBar(toolbar =>
+                           {
+                               toolbar.Create().Text("Create Product");
 
-                           //})
-                           //.Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EditTemplate"))
-
-                           //.HtmlAttributes(new { style = "height:2000px;" })
-
+                           })
+                           .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EditTemplate"))
                            .Pageable(pageable => pageable
                            .Refresh(true)
                            .PageSizes(new int[] { 25, 50, 100 })

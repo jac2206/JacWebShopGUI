@@ -53,6 +53,11 @@ namespace JacWebShopGUI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertNewProduct", categoryParameter, nameProductParameter, productCodeParameter, priceProductParameter, descriptionParameter);
         }
     
+        public virtual ObjectResult<uspGetCategoriesList_Result> uspGetCategoriesList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetCategoriesList_Result>("uspGetCategoriesList");
+        }
+    
         public virtual ObjectResult<uspGetAllProducts_Result> uspGetAllProducts()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllProducts_Result>("uspGetAllProducts");
