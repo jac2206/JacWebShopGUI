@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="JacShopDBModelStoreContainer" CdmEntityContainer="JacShopDBEntities">
+    <FunctionImportMapping FunctionImportName="uspInsertNewProduct" FunctionName="JacShopDBModel.Store.uspInsertNewProduct" />
+    <FunctionImportMapping FunctionImportName="uspGetAllProducts" FunctionName="JacShopDBModel.Store.uspGetAllProducts">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="JacShopDBModel.uspGetAllProducts_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

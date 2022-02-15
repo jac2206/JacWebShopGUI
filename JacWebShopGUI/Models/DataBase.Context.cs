@@ -28,11 +28,6 @@ namespace JacWebShopGUI.Models
         }
     
     
-        public virtual ObjectResult<uspGetAllProducts_Result> uspGetAllProducts()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllProducts_Result>("uspGetAllProducts");
-        }
-    
         public virtual int uspInsertNewProduct(string category, string nameProduct, Nullable<long> productCode, Nullable<long> priceProduct, string description)
         {
             var categoryParameter = category != null ?
@@ -56,6 +51,11 @@ namespace JacWebShopGUI.Models
                 new ObjectParameter("Description", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspInsertNewProduct", categoryParameter, nameProductParameter, productCodeParameter, priceProductParameter, descriptionParameter);
+        }
+    
+        public virtual ObjectResult<uspGetAllProducts_Result> uspGetAllProducts()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<uspGetAllProducts_Result>("uspGetAllProducts");
         }
     }
 }
