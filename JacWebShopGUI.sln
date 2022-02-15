@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacWebShopGUI", "JacWebShopGUI\JacWebShopGUI.csproj", "{7169FE77-4835-4CA3-89C5-E7FC1031AECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JacWebShopGUI.Tests", "JacWebShopGUI.Tests\JacWebShopGUI.Tests.csproj", "{C94DDE5D-7B74-4149-8529-E2C011CDA619}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7169FE77-4835-4CA3-89C5-E7FC1031AECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7169FE77-4835-4CA3-89C5-E7FC1031AECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7169FE77-4835-4CA3-89C5-E7FC1031AECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7169FE77-4835-4CA3-89C5-E7FC1031AECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C94DDE5D-7B74-4149-8529-E2C011CDA619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C94DDE5D-7B74-4149-8529-E2C011CDA619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C94DDE5D-7B74-4149-8529-E2C011CDA619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C94DDE5D-7B74-4149-8529-E2C011CDA619}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B869DD1C-31AC-498D-8504-73BF72A4D680}
+	EndGlobalSection
+EndGlobal
