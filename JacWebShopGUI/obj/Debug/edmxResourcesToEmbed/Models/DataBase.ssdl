@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JacShopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Function Name="uspGetAllProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Master" />
+  <Function Name="uspInsertNewProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Master">
+    <Parameter Name="Category" Type="varchar" Mode="In" />
+    <Parameter Name="NameProduct" Type="varchar" Mode="In" />
+    <Parameter Name="ProductCode" Type="bigint" Mode="In" />
+    <Parameter Name="PriceProduct" Type="bigint" Mode="In" />
+    <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="JacShopDBModelStoreContainer" />
+</Schema>
