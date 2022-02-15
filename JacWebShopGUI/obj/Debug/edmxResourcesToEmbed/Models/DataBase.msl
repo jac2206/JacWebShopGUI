@@ -2,6 +2,15 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="JacShopDBModelStoreContainer" CdmEntityContainer="JacShopDBEntities">
     <FunctionImportMapping FunctionImportName="uspInsertNewProduct" FunctionName="JacShopDBModel.Store.uspInsertNewProduct" />
+    <FunctionImportMapping FunctionImportName="uspGetCategoriesList" FunctionName="JacShopDBModel.Store.uspGetCategoriesList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="JacShopDBModel.uspGetCategoriesList_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="uspGetAllProducts" FunctionName="JacShopDBModel.Store.uspGetAllProducts">
       <ResultMapping>
         <ComplexTypeMapping TypeName="JacShopDBModel.uspGetAllProducts_Result">

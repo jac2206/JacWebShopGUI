@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="JacShopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="uspGetAllProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Master" />
+        <Function Name="uspGetCategoriesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Master" />
         <Function Name="uspInsertNewProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Master">
           <Parameter Name="Category" Type="varchar" Mode="In" />
           <Parameter Name="NameProduct" Type="varchar" Mode="In" />
@@ -26,8 +27,14 @@
             <Parameter Name="PriceProduct" Mode="In" Type="Int64" />
             <Parameter Name="Description" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="uspGetCategoriesList" ReturnType="Collection(JacShopDBModel.uspGetCategoriesList_Result)" />
           <FunctionImport Name="uspGetAllProducts" ReturnType="Collection(JacShopDBModel.uspGetAllProducts_Result)" />
         </EntityContainer>
+        <ComplexType Name="uspGetCategoriesList_Result">
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Description" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="uspGetAllProducts_Result">
           <Property Type="Int64" Name="Id" Nullable="false" />
           <Property Type="String" Name="Category" Nullable="false" MaxLength="200" />
@@ -35,7 +42,7 @@
           <Property Type="Int64" Name="ProductCode" Nullable="false" />
           <Property Type="Int64" Name="Price" Nullable="false" />
           <Property Type="String" Name="Description" Nullable="true" />
-          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+          <Property Type="String" Name="TimeStamp" Nullable="true" MaxLength="19" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -44,6 +51,15 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="JacShopDBModelStoreContainer" CdmEntityContainer="JacShopDBEntities" >
           <FunctionImportMapping FunctionImportName="uspInsertNewProduct" FunctionName="JacShopDBModel.Store.uspInsertNewProduct" />
+          <FunctionImportMapping FunctionImportName="uspGetCategoriesList" FunctionName="JacShopDBModel.Store.uspGetCategoriesList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JacShopDBModel.uspGetCategoriesList_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="uspGetAllProducts" FunctionName="JacShopDBModel.Store.uspGetAllProducts">
             <ResultMapping>
               <ComplexTypeMapping TypeName="JacShopDBModel.uspGetAllProducts_Result">

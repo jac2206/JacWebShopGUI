@@ -8,8 +8,14 @@
       <Parameter Name="PriceProduct" Mode="In" Type="Int64" />
       <Parameter Name="Description" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="uspGetCategoriesList" ReturnType="Collection(JacShopDBModel.uspGetCategoriesList_Result)" />
     <FunctionImport Name="uspGetAllProducts" ReturnType="Collection(JacShopDBModel.uspGetAllProducts_Result)" />
   </EntityContainer>
+  <ComplexType Name="uspGetCategoriesList_Result">
+    <Property Type="Int64" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Description" Nullable="true" />
+  </ComplexType>
   <ComplexType Name="uspGetAllProducts_Result">
     <Property Type="Int64" Name="Id" Nullable="false" />
     <Property Type="String" Name="Category" Nullable="false" MaxLength="200" />
@@ -17,6 +23,6 @@
     <Property Type="Int64" Name="ProductCode" Nullable="false" />
     <Property Type="Int64" Name="Price" Nullable="false" />
     <Property Type="String" Name="Description" Nullable="true" />
-    <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+    <Property Type="String" Name="TimeStamp" Nullable="true" MaxLength="19" />
   </ComplexType>
 </Schema>
