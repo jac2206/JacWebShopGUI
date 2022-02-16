@@ -10,19 +10,11 @@
 namespace JacWebShopGUI.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class uspGetAllProducts_Result
+    
+    public partial class uspGetCategoriesList_Result
     {
         public long Id { get; set; }
-        public string Category { get; set; }
-        [Required]
-        public string ProductName { get; set; }
-        [Required]
-        public long ProductCode { get; set; }
-        [Required]
-        public long Price { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
-        public string TimeStamp { get; set; }
     }
 }
