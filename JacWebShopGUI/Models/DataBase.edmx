@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JacShopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="uspGetAllProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Master" />
+        <Function Name="uspInsertNewProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Master">
+          <Parameter Name="Category" Type="varchar" Mode="In" />
+          <Parameter Name="NameProduct" Type="varchar" Mode="In" />
+          <Parameter Name="ProductCode" Type="bigint" Mode="In" />
+          <Parameter Name="PriceProduct" Type="bigint" Mode="In" />
+          <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="JacShopDBModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JacShopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="JacShopDBEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="uspInsertNewProduct">
+            <Parameter Name="Category" Mode="In" Type="String" />
+            <Parameter Name="NameProduct" Mode="In" Type="String" />
+            <Parameter Name="ProductCode" Mode="In" Type="Int64" />
+            <Parameter Name="PriceProduct" Mode="In" Type="Int64" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="uspGetAllProducts" ReturnType="Collection(JacShopDBModel.uspGetAllProducts_Result)" />
+        </EntityContainer>
+        <ComplexType Name="uspGetAllProducts_Result">
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Category" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="200" />
+          <Property Type="Int64" Name="ProductCode" Nullable="false" />
+          <Property Type="Int64" Name="Price" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JacShopDBModelStoreContainer" CdmEntityContainer="JacShopDBEntities" >
+          <FunctionImportMapping FunctionImportName="uspInsertNewProduct" FunctionName="JacShopDBModel.Store.uspInsertNewProduct" />
+          <FunctionImportMapping FunctionImportName="uspGetAllProducts" FunctionName="JacShopDBModel.Store.uspGetAllProducts">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JacShopDBModel.uspGetAllProducts_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
