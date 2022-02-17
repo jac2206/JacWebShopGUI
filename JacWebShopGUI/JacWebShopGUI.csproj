@@ -63,6 +63,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -192,6 +193,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\APIGridProductsManagementController.cs" />
     <Compile Include="Controllers\GridProductsManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,6 +221,7 @@
       <DependentUpon>DataBase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\APICallUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -290,6 +293,8 @@
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\GridProductsManagement\Index.cshtml" />
     <Content Include="Views\GridProductsManagement\EditorTemplates\EditTemplate.cshtml" />
+    <Content Include="Views\APIGridProductsManagement\Index.cshtml" />
+    <Content Include="Views\APIGridProductsManagement\EditorTemplates\EditTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

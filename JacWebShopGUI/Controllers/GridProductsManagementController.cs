@@ -8,11 +8,17 @@ using JacWebShopGUI.Models;
 using Kendo.Mvc.Extensions;
 using System.Threading;
 using System.Globalization;
+using System.Web.Caching;
+using System.Runtime.Caching;
 
 namespace JacWebShopGUI.Controllers
 {
     public class GridProductsManagementController : Controller
     {
+
+        private MemoryCache cache = MemoryCache.Default;
+
+
         // GET: GridProductsManagement
         public ActionResult Index()
         {
@@ -45,10 +51,25 @@ namespace JacWebShopGUI.Controllers
             return Json(100);
         }
 
-        public ActionResult GetAllProducts([DataSourceRequest] DataSourceRequest request)
+        public ActionResult GetAllProducts([DataSourceRequest] DataSourceRequest request, int dataStorage)
         {
             try
             {
+                if (dataStorage == 2)
+                {
+
+                    List<uspGetAllProducts_Result> dataProductCache = new List<uspGetAllProducts_Result>();
+                    if (HttpRuntime.Cache.Get("dataCache") != null)
+                    {
+                        dataProductCache = (List<uspGetAllProducts_Result>)HttpRuntime.Cache.Get("dataCache");             
+                    }
+
+                    IQueryable<uspGetAllProducts_Result> getAllProductsList = dataProductCache.AsQueryable();
+                    DataSourceResult result = getAllProductsList.ToList().ToDataSourceResult(request);
+                    return Json(result);
+
+                }
+
                 using (var DB = new JacShopDBEntities())
                 {
                     IQueryable<uspGetAllProducts_Result> getAllProductsList = DB.uspGetAllProducts().AsQueryable();
@@ -63,12 +84,44 @@ namespace JacWebShopGUI.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult CreateNewProduct([DataSourceRequest] DataSourceRequest request, uspGetAllProducts_Result productEdit)
+        public ActionResult CreateNewProduct([DataSourceRequest] DataSourceRequest request, uspGetAllProducts_Result productEdit, int dataStorage)
         {
             try
             {
               
-                productEdit.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); 
+                productEdit.TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                if (dataStorage == 2)
+                {
+
+                    if (productEdit != null && ModelState.IsValid)
+                    {
+                        List<uspGetAllProducts_Result> dataProductCache = new List<uspGetAllProducts_Result>();
+                        
+                        if (HttpRuntime.Cache.Get("dataCache") != null)
+                        {
+                            dataProductCache = (List<uspGetAllProducts_Result>)HttpRuntime.Cache.Get("dataCache");
+                            HttpRuntime.Cache.Remove("dataCache");
+                            dataProductCache.Add(productEdit);
+                            HttpRuntime.Cache.Insert("dataCache"
+                                                   , dataProductCache
+                                                   , null
+                                                   , DateTime.UtcNow.AddMinutes(10)
+                                                   , Cache.NoSlidingExpiration);
+                            return Json(new[] { productEdit }.ToDataSourceResult(request, ModelState));
+
+                        }
+
+                        dataProductCache.Add(productEdit);
+                        HttpRuntime.Cache.Insert("dataCache"
+                                                   , dataProductCache
+                                                   , null
+                                                   , DateTime.UtcNow.AddMinutes(10)
+                                                   , Cache.NoSlidingExpiration);
+
+                        return Json(new[] { productEdit }.ToDataSourceResult(request, ModelState));
+                    }               
+                }
 
                 using (var DB = new JacShopDBEntities())
                 {

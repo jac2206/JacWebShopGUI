@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "Product Management";
+    ViewBag.Title = "API Product Management";
 }
 
 <div>
 
-    <div class="box-col">
+    @*<div class="box-col">
         <label class="label">Select color:</label>
         @(Html.Kendo().RadioGroup()
             .Name("radioGroupDataStorage")
@@ -18,7 +18,7 @@
             .Value("1")
             .Events(e => e.Change("onChange"))
         )
-    </div>
+    </div>*@
 
     @(Html.Kendo().Grid<JacWebShopGUI.Models.uspGetAllProducts_Result>()
                            .Name("gridProducts")
@@ -32,8 +32,8 @@
                            {
                                Model.Id(p => p.ProductName);
                            })
-                           .Read(read => read.Action("GetAllProducts", "GridProductsManagement").Data("additionalData"))
-                           .Create(update => update.Action("CreateNewProduct", "GridProductsManagement").Data("additionalData"))
+                           .Read(read => read.Action("GetAllProducts", "APIGridProductsManagement"))
+                           .Create(update => update.Action("CreateNewProduct", "APIGridProductsManagement"))
                            .PageSize(50)
                            )
 
@@ -100,17 +100,19 @@
         }
     }
 
-    function onChange(e) {
-        $("#gridProducts").data("kendoGrid").dataSource.read().refresh;
-    }
+    //function onChange(e) {
+    //    $("#gridProducts").data("kendoGrid").dataSource.read().refresh;
+    //}
 
 </script>
 
-<script>
+@*<script>
 
     function additionalData() {
         return {
             dataStorage: $("#radioGroupDataStorage").data("kendoRadioGroup").value()
         };
     }
-</script>
+</script>*@
+
+
