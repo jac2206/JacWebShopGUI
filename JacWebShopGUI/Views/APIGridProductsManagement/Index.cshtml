@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "API Product Management";
+}
+
+<div>
+
+    @*<div class="box-col">
+        <label class="label">Select color:</label>
+        @(Html.Kendo().RadioGroup()
+            .Name("radioGroupDataStorage")
+            .Layout("horizontal")
+            .Items(i =>
+            {
+                i.Add().Label("Data Base").Value("1");
+                i.Add().Label("In Memory Storage").Value("2");
+            })
+            .Value("1")
+            .Events(e => e.Change("onChange"))
+        )
+    </div>*@
+
+    @(Html.Kendo().Grid<JacWebShopGUI.Models.uspGetAllProducts_Result>()
+                           .Name("gridProducts")
+                           .DataSource(dataSource => dataSource
+                           .Ajax()
+                           .Events(events => events
+                           .Error("error_handler")
+                           .Sync("sync_handler")
+                           )
+                           .Model(Model =>
+                           {
+                               Model.Id(p => p.ProductName);
+                           })
+                           .Read(read => read.Action("GetAllProducts", "APIGridProductsManagement"))
+                           .Create(update => update.Action("CreateNewProduct", "APIGridProductsManagement"))
+                           .PageSize(50)
+                           )
+
+                           .Columns(columns =>
+                           {
+
+                               columns.Bound(p => p.Id).Hidden();
+                               columns.Bound(p => p.Category).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Category").Width(120).Filterable(ftb => ftb.Multi(true).Search(true));
+                               columns.Bound(p => p.ProductName).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Product Name").Width(120).Filterable(ftb => ftb.Multi(true).Search(true));
+                               columns.Bound(p => p.ProductCode).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Product Code").Width(160).Filterable(ftb => ftb.Multi(true).Search(true));
+                               columns.Bound(p => p.Price).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Price").Width(150);
+                               columns.Bound(p => p.Description).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Description").Width(180);
+                               columns.Bound(p => p.TimeStamp).HeaderHtmlAttributes(new { Style = "text-align: center; font-weight: bold" }).Title("Time Stamp").Width(150).Format("{0:yyyy-MM-dd HH:mm:ss}");
+                           })
+                           .ToolBar(toolbar =>
+                           {
+                               toolbar.Create().Text("Create Product");
+
+                           })
+                           .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EditTemplate"))
+                           .Pageable(pageable => pageable
+                           .Refresh(true)
+                           .PageSizes(new int[] { 25, 50, 100 })
+                           )
+                           .HtmlAttributes(new { style = "width: 1210px;text-align: center;" })
+                           .Pageable()
+                           .Scrollable(s => s.Enabled(true).Height("auto"))
+                           .Selectable(selectable => selectable
+                           .Mode(GridSelectionMode.Single)
+                           .Type(GridSelectionType.Row))
+                           .Filterable()
+
+    )
+    @(Html.Kendo().Notification()
+                                       .Name("popupNotification")
+    )
+
+</div>
+
+<script type="text/javascript">
+
+    function sync_handler(e) {
+
+        this.read();
+
+        var popupNotification = $("#popupNotification").data("kendoNotification");
+        popupNotification.show(kendo.toString("Action Executed Successfully"));
+
+    }
+
+    function error_handler(e) {
+
+        if (e.errors) {
+            alert("Error edit grid");
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    //function onChange(e) {
+    //    $("#gridProducts").data("kendoGrid").dataSource.read().refresh;
+    //}
+
+</script>
+
+@*<script>
+
+    function additionalData() {
+        return {
+            dataStorage: $("#radioGroupDataStorage").data("kendoRadioGroup").value()
+        };
+    }
+</script>*@
+
+

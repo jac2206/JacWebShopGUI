@@ -1,0 +1,73 @@
+﻿@model JacWebShopGUI.Models.uspGetAllProducts_Result
+
+<div class="k-popup-edit-form k-window-content k-content">
+    <div class="k-edit-form-container">
+        <h2>ADD PRODUCT</h2>
+        <br />
+
+        <div>
+            @Html.LabelFor(model => model.Category)
+
+        </div>
+        <div>
+            @(Html.Kendo().DropDownListFor(model => model.Category)
+                                                             .HtmlAttributes(new { required = "required", data_required_msg = "Campo requerido" })
+                                                             //.AutoBind(true)
+                                                             .OptionLabel("Select Category...")
+                                                             .DataTextField("Name")
+                                                             .DataValueField("Name")
+                                                             .DataSource(dataSource =>
+                                                             {
+                                                                 dataSource.Read(read => read.Action("GetCategoriesList", "APIGridProductsManagement"));
+                                                             })
+            )
+            @Html.ValidationMessageFor(model => model.Category)
+        </div>
+
+        &nbsp
+        <div>
+            @Html.LabelFor(model => model.ProductName)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.ProductName)
+            @Html.ValidationMessageFor(model => model.ProductName)
+        </div>
+
+        &nbsp
+        <div>
+            @Html.LabelFor(model => model.ProductCode)
+        </div>
+        <div>
+
+            @(Html.Kendo().NumericTextBoxFor<long>(model => model.ProductCode)
+                                                 .Min(0)
+            )
+            @Html.ValidationMessageFor(model => model.ProductCode)
+
+        </div>
+        &nbsp
+        <div>
+            @Html.LabelFor(model => model.Price)
+        </div>
+        <div>
+
+            @(Html.Kendo().NumericTextBoxFor<long>(model => model.Price)
+                                                 .Min(0)
+            )
+            @Html.ValidationMessageFor(model => model.Price)
+
+        </div>
+
+        &nbsp
+        <div>
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+    </div>
+</div>
+
+
