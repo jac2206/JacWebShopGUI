@@ -5,6 +5,21 @@
 
 <div>
 
+    <div class="box-col">
+        <label class="label">Select color:</label>
+        @(Html.Kendo().RadioGroup()
+            .Name("radioGroupDataStorage")
+            .Layout("horizontal")
+            .Items(i =>
+            {
+                i.Add().Label("Data Base").Value("1");
+                i.Add().Label("In Memory Storage").Value("2");
+            })
+            .Value("1")
+            .Events(e => e.Change("onChange"))
+        )
+    </div>
+
     @(Html.Kendo().Grid<JacWebShopGUI.Models.uspGetAllProducts_Result>()
                            .Name("gridProducts")
                            .DataSource(dataSource => dataSource
@@ -15,10 +30,10 @@
                            )
                            .Model(Model =>
                            {
-                               Model.Id(p => p.Id);
+                               Model.Id(p => p.ProductName);
                            })
-                           .Read(read => read.Action("GetAllProducts", "GridProductsManagement"))
-                           .Create(update => update.Action("CreateNewProduct", "GridProductsManagement"))
+                           .Read(read => read.Action("GetAllProducts", "GridProductsManagement").Data("additionalData"))
+                           .Create(update => update.Action("CreateNewProduct", "GridProductsManagement").Data("additionalData"))
                            .PageSize(50)
                            )
 
@@ -85,5 +100,17 @@
         }
     }
 
+    function onChange(e) {
+        $("#gridProducts").data("kendoGrid").dataSource.read().refresh;
+    }
+
 </script>
 
+<script>
+
+    function additionalData() {
+        return {
+            dataStorage: $("#radioGroupDataStorage").data("kendoRadioGroup").value()
+        };
+    }
+</script>
